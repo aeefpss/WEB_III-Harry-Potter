@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wizarding World Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <canvas id="stars"></canvas>
+
+    <header>
+        <a class="logo" href="#" onclick="showSection('home')">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 4V2" />
+                <path d="M15 16v-2" />
+                <path d="M8 9h2" />
+                <path d="M20 9h2" />
+                <path d="M17.8 11.8L19 13" />
+                <path d="M15 9h.01" />
+                <path d="M17.8 6.2L19 5" />
+                <path d="m3 21 9-9" />
+                <path d="M12.2 6.2L11 5" />
+            </svg>
+            Wizarding World Explorer
+        </a>
+        <nav>
+            <a href="#" onclick="showSection('character')">Personagens</a>
+            <a href="#" onclick="showSection('quiz')">Quiz</a>
+        </nav>
+    </header>
+
+    <!-- ═══════════ HOME ═══════════ -->
+    <div id="home-section">
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+                        <path d="M5 3v4" />
+                        <path d="M19 17v4" />
+                        <path d="M3 5h4" />
+                        <path d="M17 19h4" />
+                    </svg>
+                </div>
+                <h1>Descubra a <span>Magia</span> de Harry Potter</h1>
+                <p class="subtitle">Explore o mundo bruxo. Descubra feiticeiros lendários e teste seus conhecimentos
+                    sobre o universo de Harry Potter.</p>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="showSection('character')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                        </svg>
+                        Personagem Aleatório
+                    </button>
+                    <button class="btn btn-outline" onclick="showSection('quiz')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                        </svg>
+                        Fazer o Quiz
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="spells-section">
+            <div class="section-header">
+                <h2>Livro Padrão de Feitiços</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="spells-grid" id="spells-grid">
+                <div class="spell-card">
+                    <div class="skeleton" style="height:24px;width:70%;margin-bottom:12px"></div>
+                    <div class="skeleton" style="height:60px"></div>
+                </div>
+                <div class="spell-card">
+                    <div class="skeleton" style="height:24px;width:70%;margin-bottom:12px"></div>
+                    <div class="skeleton" style="height:60px"></div>
+                </div>
+                <div class="spell-card">
+                    <div class="skeleton" style="height:24px;width:70%;margin-bottom:12px"></div>
+                    <div class="skeleton" style="height:60px"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ═══════════ PERSONAGENS ═══════════ -->
+    <div id="character-section" class="section-wrap character-section">
+        <div class="section-header" style="width:100%;max-width:480px;margin-bottom:2.5rem">
+            <h2>Bruxos &amp; Bruxas</h2>
+            <p style="font-style:italic;color:var(--muted);margin-top:0.5rem">Descubra os grandes nomes do mundo mágico.
+            </p>
+        </div>
+        <div id="char-display"
+            style="width:100%;max-width:420px;min-height:300px;display:flex;align-items:center;justify-content:center">
+            <span class="loading-text">Carregando...</span>
+        </div>
+        <div style="margin-top:2.5rem">
+            <button class="btn btn-outline" onclick="showRandomCharacter()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    id="shuffle-icon">
+                    <path d="M3 3h5l1.5 1.5" />
+                    <path d="M9 3h1" />
+                    <path d="M14.83 9.17a4 4 0 1 1-5.66-5.66" />
+                    <path d="M14.83 9.17L21 3m0 0v5m0-5h-5" />
+                    <path d="M3 21l15-15" />
+                    <path d="M21 21v-5m0 5h-5" />
+                    <path d="M3 21h5" />
+                </svg>
+                Revelar Outro
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════ QUIZ ═══════════ -->
+    <div id="quiz-section" class="section-wrap quiz-section">
+        <div id="quiz-container"
+            style="width:100%;max-width:640px;display:flex;flex-direction:column;align-items:stretch"></div>
+    </div>
+
+    <footer>
+        <p>"As palavras são, na minha humílima opinião, a fonte mais inexaurível de magia."</p>
+        <small>Uma criação de alunos da Escola Técnica Estadual de Taboão da Serra. Dados por
+            hp-api.onrender.com</small>
+    </footer>
+
+    <script>
+        // ── STARS ──────────────────────────────────────────────
+        (function () {
+            const canvas = document.getElementById('stars');
+            const ctx = canvas.getContext('2d');
+            let particles = [], rafId;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                init();
+            }
+
+            function init() {
+                particles = [];
+                const n = Math.floor(canvas.width * canvas.height / 10000);
+                for (let i = 0; i < n; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        r: Math.random() * 1.5,
+                        vx: (Math.random() - 0.5) * 0.15,
+                        vy: (Math.random() - 0.5) * 0.15,
+                        a: Math.random() * 0.8 + 0.1
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+                    ctx.globalAlpha = p.a;
+                    ctx.fillStyle = '#d4af37';
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                rafId = requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', resize);
+            resize();
+            draw();
+        })();
+
+        // ── NAVIGATION ─────────────────────────────────────────
+        function showSection(name) {
+            document.getElementById('home-section').style.display = 'none';
+            document.querySelectorAll('.section-wrap').forEach(el => el.classList.remove('active'));
+
+            if (name === 'home') {
+                document.getElementById('home-section').style.display = 'flex';
+            } else {
+                const el = document.getElementById(name + '-section');
+                if (el) el.classList.add('active');
+                if (name === 'character') initCharacter();
+                if (name === 'quiz') initQuiz();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ── DATA CACHE ──────────────────────────────────────────
+        let allCharacters = null;
+        let spellsLoaded = false;
+
+        // ── SPELLS ──────────────────────────────────────────────
+        async function loadSpells() {
+            if (spellsLoaded) return;
+            try {
+                const res = await fetch('https://hp-api.onrender.com/api/spells');
+                const data = await res.json();
+                const shuffled = data.sort(() => Math.random() - 0.5).slice(0, 3);
+                const grid = document.getElementById('spells-grid');
+                grid.innerHTML = shuffled.map(s => `
+      <div class="spell-card">
+        <h3>${s.name}</h3>
+        <p>${s.description}</p>
+      </div>
+    `).join('');
+                spellsLoaded = true;
+            } catch (e) {
+                document.getElementById('spells-grid').innerHTML = '<p style="color:var(--muted);text-align:center;grid-column:1/-1">Não foi possível carregar os feitiços.</p>';
+            }
+        }
+
+        // ── CHARACTERS ──────────────────────────────────────────
+        async function initCharacter() {
+            if (!allCharacters) {
+                document.getElementById('char-display').innerHTML = '<span class="loading-text">Carregando...</span>';
+                try {
+                    const res = await fetch('https://hp-api.onrender.com/api/characters');
+                    allCharacters = await res.json();
+                } catch (e) {
+                    document.getElementById('char-display').innerHTML = '<p style="color:var(--muted)">A Sala Proibida está trancada. Tente novamente.</p>';
+                    return;
+                }
+            }
+            showRandomCharacter();
+        }
+
+        function houseBadgeClass(house) {
+            switch ((house || '').toLowerCase()) {
+                case 'gryffindor': return 'badge-gryffindor';
+                case 'slytherin': return 'badge-slytherin';
+                case 'hufflepuff': return 'badge-hufflepuff';
+                case 'ravenclaw': return 'badge-ravenclaw';
+                default: return 'badge-unknown';
+            }
+        }
+
+        function traduzirEspecies(species) {
+            if (!species) return "DESCONHECIDA";
+
+            const map = {
+                human: "Humano",
+                half_giant: "Meio-Gigante",
+                werewolf: "Lobisomem",
+                ghost: "Fantasma",
+                goblin: "Duende",
+                house_elf: "Elfo Doméstico",
+                centaur: "Centauro",
+                vampire: "Vampiro",
+                dragon: "Dragão",
+                hat: "Chapéu"
+            };
+
+            return map[species] || species;
+        }
+
+        function wandText(w) {
+            if (!w || (!w.wood && !w.core && !w.length)) return 'Desconhecida';
+            return [w.wood && `${w.wood}`, w.core && `núcleo de ${w.core}`, w.length && `(${w.length}")`].filter(Boolean).join(', ');
+        }
+
+        let lastCharIndex = -1;
+
+        function showRandomCharacter() {
+            if (!allCharacters) { initCharacter(); return; }
+            const icon = document.getElementById('shuffle-icon');
+            if (icon) icon.style.animation = 'spin 0.4s ease';
+
+            let idx;
+            do { idx = Math.floor(Math.random() * allCharacters.length); }
+            while (idx === lastCharIndex && allCharacters.length > 1);
+            lastCharIndex = idx;
+
+            const c = allCharacters[idx];
+            const img = c.image || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&background=0D1117&color=D4AF37&size=512&bold=true&format=png`;
+            const houseCls = houseBadgeClass(c.house);
+
+            document.getElementById('char-display').innerHTML = `
+    <div class="char-card">
+      <div class="char-img-wrap">
+        <img src="${img}" alt="${c.name}" loading="lazy" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&background=0D1117&color=D4AF37&size=512&bold=true&format=png'"/>
+        <div class="char-img-overlay"></div>
+        <div class="char-badges">
+          ${c.house ? `<span class="badge ${houseCls}">${c.house}</span>` : ''}
+          <span class="badge ${c.alive ? 'badge-alive' : 'badge-dead'}">${c.alive ? 'Vivo' : 'Falecido'}</span>
+        </div>
+      </div>
+      <div class="char-body">
+        <div class="char-name">${c.name}</div>
+        ${c.alternate_names && c.alternate_names[0] ? `<div class="char-alias">Também conhecido como: ${c.alternate_names[0]}</div>` : '<div style="margin-bottom:1.5rem"></div>'}
+        <div class="char-details">
+          <div class="char-row">
+            <span class="char-label">Espécie</span>
+            <span class="char-value">${traduzirEspecies(c.species)}</span>
+          </div>
+          <div class="char-row">
+            <span class="char-label">Patrono</span>
+            <span class="char-value">${c.patronus || 'Desconhecido'}</span>
+          </div>
+          <div class="char-row">
+            <span class="char-label">Varinha</span>
+            <span class="char-value">${wandText(c.wand)}</span>
+          </div>
+          <div class="char-row">
+            <span class="char-label">Ator</span>
+            <span class="char-value">${c.actor || 'Desconhecido'}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+            if (icon) setTimeout(() => { icon.style.animation = ''; }, 400);
+        }
+
+        // ── QUIZ ────────────────────────────────────────────────
+        const QUESTIONS = [
+            { q: 'Em qual casa de Hogwarts Harry Potter estuda?', opts: ['Sonserina', 'Lufa-Lufa', 'Grifinória', 'Corvinal'], correct: 2 },
+            { q: 'Qual o nome da coruja de Harry?', opts: ['Hedwig', 'Errol', 'Gárgula', 'Crookshanks'], correct: 0 },
+            { q: 'Quem é o Enigma do Príncipe?', opts: ['Tom Riddle', 'Lucius Malfoy', 'Severo Snape', 'Draco Malfoy'], correct: 2 },
+            { q: "O que o feitiço 'Expecto Patronum' invoca?", opts: ['Uma Maldição', 'Um Patrono', 'Um Dementador', 'Um Boggart'], correct: 1 },
+            { q: "Quem escreveu 'Animais Fantásticos e Onde Habitam'?", opts: ['Alvo Dumbledore', 'Gilderoy Lockhart', 'Newt Scamander', 'Bathilda Bagshot'], correct: 2 },
+            { q: 'Qual é a aldeia mágica perto de Hogwarts?', opts: ["Godric's Hollow", 'Hogsmeade', 'Beco Diagonal', 'Beco Knockturn'], correct: 1 },
+            { q: 'Qual dragão Harry enfrentou no Torneio Tribruxo?', opts: ['Basilisco Húngaro', 'Cornão Norueguês', 'Firebolt Chinês', 'Cauda de Trestral'], correct: 0 },
+            { q: 'Qual é o núcleo da varinha de Harry?', opts: ['Fibra de coração de dragão', 'Pelo de unicórnio', 'Pena de fênix', 'Pelo de trestral'], correct: 2 },
+            { q: 'Qual Maldição Imperdoável que causa morte instantânea?', opts: ['Avada Kedavra', 'Crucio', 'Imperio', 'Sectumsempra'], correct: 0 },
+            { q: 'Quem destruiu o Horcrux do diário?', opts: ['Hermione Granger', 'Rony Weasley', 'Gina Weasley', 'Harry Potter'], correct: 3 },
+        ];
+
+        let quizState = { current: 0, score: 0, answered: false };
+
+        function initQuiz() {
+            quizState = { current: 0, score: 0, answered: false };
+            renderQuizQuestion();
+        }
+
+        function getRank(score) {
+            if (score === 10) return 'Ótimo (O)';
+            if (score >= 8) return 'Supera as Expectativas (E)';
+            if (score >= 6) return 'Aceitável (A)';
+            if (score >= 4) return 'Pobre (P)';
+            if (score >= 2) return 'Deplorável (D)';
+            return 'Troll (T)';
+        }
+
+        function renderQuizQuestion() {
+            const container = document.getElementById('quiz-container');
+            const { current, score } = quizState;
+            const total = QUESTIONS.length;
+            const q = QUESTIONS[current];
+            const progress = (current / total) * 100;
+
+            container.innerHTML = `
+    <div class="quiz-meta">
+      <span>Pergunta ${current + 1} de ${total}</span>
+      <span class="score">Pontuação: ${score}</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+    <div class="quiz-card">
+      <div class="quiz-question">${q.q}</div>
+      <div class="options">
+        ${q.opts.map((opt, i) => `
+          <button class="option-btn" onclick="selectAnswer(${i})">
+            <span class="opt-letter">${String.fromCharCode(65 + i)}.</span>
+            ${opt}
+          </button>
+        `).join('')}
+      </div>
+      <div class="quiz-next" id="quiz-next" style="display:none">
+        <button class="btn btn-primary" onclick="nextQuestion()">
+          ${current < total - 1 ? 'Próxima' : 'Ver Resultado'}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  `;
+        }
+
+        function selectAnswer(idx) {
+            if (quizState.answered) return;
+            quizState.answered = true;
+            const q = QUESTIONS[quizState.current];
+            if (idx === q.correct) quizState.score++;
+
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach((btn, i) => {
+                btn.disabled = true;
+                if (i === q.correct) btn.classList.add('correct');
+                else if (i === idx) btn.classList.add('wrong');
+                else btn.classList.add('dimmed');
+            });
+
+            document.getElementById('quiz-next').style.display = 'flex';
+        }
+
+        function nextQuestion() {
+            quizState.current++;
+            quizState.answered = false;
+            if (quizState.current >= QUESTIONS.length) {
+                renderQuizResult();
+            } else {
+                renderQuizQuestion();
+            }
+        }
+
+        function renderQuizResult() {
+            const container = document.getElementById('quiz-container');
+            const { score } = quizState;
+            container.innerHTML = `
+    <div class="results-card">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+      </svg>
+      <h2>Resultados do Quiz</h2>
+      <p class="results-subtitle">Teste de Aptidão em Harry Potter</p>
+      <div class="results-score">${score} / 10</div>
+      <span class="grade-label">Nota Obtida</span>
+      <span class="grade-value">${getRank(score)}</span>
+      <button class="btn btn-primary" onclick="initQuiz()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="shuffle-icon">
+                    <path d="M3 3h5l1.5 1.5" />
+                    <path d="M9 3h1" />
+                    <path d="M14.83 9.17a4 4 0 1 1-5.66-5.66" />
+                    <path d="M14.83 9.17L21 3m0 0v5m0-5h-5" />
+                    <path d="M3 21l15-15" />
+                    <path d="M21 21v-5m0 5h-5" />
+                    <path d="M3 21h5" />
+                </svg>
+        Refazer a Prova
+      </button>
+    </div>
+  `;
+        }
+
+        // ── SPIN ANIMATION ──────────────────────────────────────
+        const style = document.createElement('style');
+        style.textContent = '@keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }';
+        document.head.appendChild(style);
+
+        // ── INIT ────────────────────────────────────────────────
+        loadSpells();
+    </script>
+</body>
+
+</html>
